@@ -1,0 +1,5 @@
+---
+domain_name: example.com
+porkbun_api_key: example
+porkbun_secret_api_key: example
+base_path: /home/ssl

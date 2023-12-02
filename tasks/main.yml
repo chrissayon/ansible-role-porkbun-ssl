@@ -1,0 +1,49 @@
+---
+- name: Get SSL Certificate
+  ansible.builtin.uri:
+    url: "https://porkbun.com/api/json/v3/ssl/retrieve/{{ domain_name }}"
+    method: POST
+    body_format: json
+    body:
+      apikey: "{{ porkbun_api_key }}"
+      secretapikey: "{{ porkbun_secret_api_key }}"
+  register: ssl_certificate
+
+- name: Create SSL folder
+  ansible.builtin.file:
+    path: "{{ base_path }}"
+    state: directory
+    mode: 0644
+
+- name: Create SSL Private Key file
+  ansible.builtin.file:
+    path: "{{ base_path }}/privatekey.pem"
+    state: touch
+    mode: 0644
+
+- name: Write to SSL Private Key File
+  ansible.builtin.copy:
+    content: "{{ ssl_certificate.json.privatekey }}"
+    dest: "{{ base_path }}/privatekey.pem"
+
+- name: Create SSL Certificate Chain file
+  ansible.builtin.file:
+    path: "{{ base_path }}/fullchain.pem"
+    state: touch
+    mode: 0644
+
+- name: Write to SSL Certificate Chain file
+  ansible.builtin.copy:
+    content: "{{ ssl_certificate.json.certificatechain }}"
+    dest: "{{ base_path }}/fullchain.pem"
+
+- name: Create SSL Intermediate Certificate file
+  ansible.builtin.file:
+    path: "{{ base_path }}/intermediatecertificate.pem"
+    state: touch
+    mode: 0644
+
+- name: Write to SSL Certificate Chain file
+  ansible.builtin.copy:
+    content: "{{ ssl_certificate.json.intermediatecertificate }}"
+    dest: "{{ base_path }}/intermediatecertificate.pem"
