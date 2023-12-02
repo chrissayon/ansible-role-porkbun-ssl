@@ -1,6 +1,6 @@
 # Porkbun SSL Role
 
-Sends a request to the Porkbun Endpoint to grab the SSL Certifificate
+Sends a request to the Porkbun Endpoint and grabs the SSL certificate for your domain.
 
 ## Installation
 
