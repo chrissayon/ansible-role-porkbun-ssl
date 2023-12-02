@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: porkbun_ssl
   author: chrissayon
   description: Sends an API Request to Porkbun and obtain the SSL certificate
   license: MIT
