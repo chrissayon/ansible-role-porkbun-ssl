@@ -5,4 +5,4 @@
   become: true
 
   roles:
-    - role: ansible_role_porkbun_ssl
+    - role: ansible-role-porkbun-ssl
